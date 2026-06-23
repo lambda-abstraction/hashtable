@@ -14,20 +14,20 @@
     },
   )
   set text(font: "Times New Roman", size: 14pt, lang: "ru")
-  set par(leading: 0.85em, spacing: 6pt, justify: true, first-line-indent: 1.25cm)
+  set par(leading: 0.85em, spacing: 18pt, justify: true, first-line-indent: 1.25cm)
 
   show heading.where(level: 1): set heading(numbering: "1")
   show heading.where(level: 2): set heading(numbering: "1.1")
   show heading.where(level: 3): set heading(numbering: "1.1.1")
 
   show heading: it => {
-    let is_special = it.body in ("Введение", "Заключение", "Содержание")
+    let body_text = if it.body.has("text") {it.body.text} else {""} 
+    let is_special = body_text in ("Введение", "Заключение", "Содержание")
     set text(weight: "bold", size: 14pt)
     if it.level == 1 {
       pagebreak(weak: true)
       if is_special {
-        set align(center)
-        it.body
+        align(center, upper(it.body))
       } else {
         set align(left)
         set par(justify: true)
@@ -36,8 +36,7 @@
       v(1.5em)
     } else if it.level == 2 {
       if is_special {
-        set align(center)
-        it.body
+        align(center, upper(it.body))
       } else {
         set align(left)
         set par(justify: true)
@@ -51,6 +50,7 @@
       v(0.8em)
     }
   }
+
 
   show figure.where(kind: image): it => {
     block(above: 6pt, below: 30pt)[

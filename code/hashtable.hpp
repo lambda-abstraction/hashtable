@@ -148,7 +148,7 @@ public:
    * @param entries   Vector of entries (not used in chaining, but required for interface).
    * @param hash      Hash function.
    * @return pair: first == true if inserted new element, false if existing found.
-   *         second – index of the entry in the entries array (new or existing).
+   *         second - index of the entry in the entries array (new or existing).
    */
   template <typename Value>
   std::pair<bool, size_t> insert_or_find(const Key &key, size_t new_index,
@@ -317,7 +317,7 @@ public:
    * @param entries   Vector of all entries (for key comparison).
    * @param hash      Hash function.
    * @return pair: first == true if new element inserted, false if existing updated.
-   *         second – index of the entry in the entries array.
+   *         second - index of the entry in the entries array.
    */
   template <typename Value>
   std::pair<bool, size_t> insert_or_find(const Key &key, size_t new_index,

@@ -1,0 +1,19 @@
+@startuml
+skinparam dpi 300
+start
+:Вычислить начальный индекс h0 = hash(key) & (size-1);
+:i = 0;
+repeat
+  :idx = (h0 + i) & (size-1);
+  if (ячейка idx пуста или удалена?) then (да)
+    :возврат idx (для вставки);
+    stop
+  else if (ключ совпадает?) then (да)
+    :возврат idx (для поиска/обновления);
+    stop
+  endif
+  :i = i + 1;
+repeat while (i < size) is (да) -> ;
+:таблица переполнена (ошибка);
+stop
+@enduml

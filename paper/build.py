@@ -53,7 +53,7 @@ def plot_data(df, operation, distrib, out_dir):
         dashes=False,
     )
     plt.title(f"{operation} time vs N ({distrib})")
-    plt.ylabel("Mean time (ns) — log scale")
+    plt.ylabel("Mean time (ns) - log scale")
     plt.xlabel("N")
     plt.yscale("log")  # <--- логарифмическая шкала по Y
     plt.grid(True, which="both", linestyle="--", linewidth=0.5)
@@ -90,7 +90,7 @@ def generate_load_plots(df_load, out_dir):
                     dashes=False,
                 )
                 plt.title(f"{op} time vs Load factor (N={N}, {distrib})")
-                plt.ylabel("Mean time (ns) — log scale")
+                plt.ylabel("Mean time (ns) - log scale")
                 plt.xlabel("Load factor")
                 plt.yscale("log")
                 plt.grid(True, which="both", linestyle="--", linewidth=0.5)

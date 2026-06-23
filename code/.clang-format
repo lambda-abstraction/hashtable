@@ -1,0 +1,26 @@
+BasedOnStyle: LLVM 
+
+# Keep binary operators at the end of the previous line → normal spacing after &&
+BreakBeforeBinaryOperators: None
+
+# Align operands after the operator (if you ever break after the operator)
+AlignOperands: AlignAfterOperator
+
+# Column limit (adjust to your preference)
+ColumnLimit: 120
+
+# Use spaces, not tabs
+UseTab: Never
+
+# Indentation widths
+IndentWidth: 2
+ContinuationIndentWidth: 4
+
+# Allow short functions, loops, etc. on a single line
+AllowShortFunctionsOnASingleLine: Inline
+AllowShortIfStatementsOnASingleLine: WithoutElse
+AllowShortLoopsOnASingleLine: true
+
+# Penalties to influence line breaking
+PenaltyExcessCharacter: 100
+PenaltyReturnTypeOnItsOwnLine: 60

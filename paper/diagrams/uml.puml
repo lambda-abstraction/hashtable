@@ -1,0 +1,84 @@
+@startuml
+!define ENTITY class
+!define TABLE entity
+
+abstract class CollisionStrategy<Key, Hash> {
+    - size_t num_elements
+    - float max_load_factor
+    - size_t max_elements
+    + {abstract} insert_or_find(Key, size_t, vector<Entry>&, Hash) : pair<bool,size_t>
+    + {abstract} find(Key, vector<Entry>&, Hash) : size_t
+    + {abstract} erase(Key, vector<Entry>&, Hash) : bool
+    + {abstract} rehash(size_t, vector<Entry>&, Hash)
+    + {abstract} clear()
+    + {abstract} capacity() : size_t
+    + {abstract} size() : size_t
+    + {abstract} set_max_load_factor(float)
+    + {abstract} get_max_load_factor() : float
+}
+
+class ChainingStrategy<Key, Hash> extends CollisionStrategy {
+    - vector<forward_list<pair<Key,size_t>>> buckets
+    ' абстрактные методы определяются 
+}
+
+abstract class OpenAddressingStrategy<Key, Hash, Strategy> extends CollisionStrategy {
+    - vector<size_t> slots
+    ' абстрактные методы определяются 
+ 
+}
+
+class LinearStrategy<Key, Hash> extends OpenAddressingStrategy<Key, Hash, Linear> {
+    ' alias с strategy=Linear
+}
+
+class QuadraticStrategy<Key, Hash> extends OpenAddressingStrategy<Key, Hash, Quadratic> {
+    ' alias с strategy=Quadratic
+}
+
+class Hash<T> << (S, #FFAAAA) >> {
+    + size_t operator()(const T&)
+}
+
+class Entry<Key, Value> {
+    - Key key
+    - Value value
+    - bool active
+    - bool deleted
+}
+
+class OrderedHashTable<Key, Value, CollisionStrategy, Hash> {
+    - Strategy strategy
+    - Hash hasher
+    - vector<Entry> entries
+    - size_t active_count
+    - float max_load_factor
+    + set_max_load_factor(float)
+    + get_max_load_factor() : float
+    + load_factor() : float
+    + reserve(size_t)
+    + shrink_to_fit()
+    + insert(const Key&, const Value&)
+    + find(Key) : Value*
+    + erase(Key) : bool
+    + operator[](Key) : Value&
+    + clear()
+    + empty() : bool
+    + size() : size_t
+    + capacity() : size_t
+    + begin() : iterator
+    + end() : iterator
+}
+
+CollisionStrategy <|-- ChainingStrategy
+CollisionStrategy <|-- OpenAddressingStrategy
+OpenAddressingStrategy <|-- LinearStrategy
+OpenAddressingStrategy <|-- QuadraticStrategy
+
+OrderedHashTable *-- CollisionStrategy
+OrderedHashTable *-- Hash
+OrderedHashTable o-- Entry
+
+ChainingStrategy --> Hash
+OpenAddressingStrategy --> Hash
+@enduml

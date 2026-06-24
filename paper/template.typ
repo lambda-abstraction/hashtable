@@ -22,7 +22,7 @@
 
   show heading: it => {
     let body_text = if it.body.has("text") {it.body.text} else {""} 
-    let is_special = body_text in ("Введение", "Заключение", "Содержание")
+    let is_special = body_text in ("Введение", "Заключение", "Содержание", "Список использованных источников", "Приложение")
     set text(weight: "bold", size: 14pt)
     if it.level == 1 {
       pagebreak(weak: true)
@@ -33,7 +33,6 @@
         set par(justify: true)
         it
       }
-      v(1.5em)
     } else if it.level == 2 {
       if is_special {
         align(center, upper(it.body))
@@ -42,15 +41,12 @@
         set par(justify: true)
         it
       }
-      v(1em)
     } else if it.level == 3 {
       set align(left)
       set par(justify: true)
-      it
-      v(0.8em)
+      emph(strong(it))
     }
   }
-
 
   show figure.where(kind: image): it => {
     block(above: 6pt, below: 30pt)[
